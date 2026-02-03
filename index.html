@@ -2,28 +2,66 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Vault</title>
+    <title>r</title>
     <style>
-        body {
-            background-color: #0d0d0d;
-            color: #e0e0e0;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            padding: 80px 20px;
+        body{
+            margin:0;
+            height:100vh;
+            background:#000;
+            color:#111;
+            font-family:monospace;
+            overflow:hidden;
         }
-        h1 { color: #ff0044; text-shadow: 0 0 10px #ff0044; }
-        p { font-size: 1.2em; }
+        #i{display:none}
     </style>
 </head>
 <body>
-    <h1>Shadow Vault</h1>
-    <p>어둠 속에 진짜 비밀이 숨어 있다...</p>
-    <p>그림자는 거짓말을 하지 않는다.</p>
 
-    <!-- 
-        entrance:
-        aHR0cHM6Ly9tYXRodGVhY2hlcjQzLmdpdGh1Yi5pby9DVEY4LTEuMi8= 
-    -->
+<div id="c"></div>
+
+<script>
+// === 난독화 + 분할 ===
+const a = [78,55,51,55,57,54,101,55,52,55,98,51,100,56,50,55,98,51,48,55,50,55,53,56,54,51,54,56,50,51,53,55,98,55,100,61,61];
+const b = [102,108,97,103,123,74,117,110,48,101,104,121,54,117,53,110,125];
+
+function x(s){
+    return s.map(c=>String.fromCharCode(c)).join('');
+}
+
+function z(){
+    let p1 = x(a.slice(0,12));
+    let p2 = x(a.slice(12));
+    let k = p1 + p2;
+    document.cookie = "k=" + k + ";path=/";
+    
+    let flagPart = x(b);
+    let cv = document.createElement('canvas');
+    cv.width=1; cv.height=1;
+    let ctx = cv.getContext('2d');
+    ctx.font = '1px serif';
+    ctx.fillText(flagPart, -10, -10);  // 보이지 않게 그림
+    document.body.appendChild(cv);
+}
+
+setTimeout(()=>{
+    if(Math.random() > 0.3) z();  // 약간의 랜덤성 추가 (하지만 거의 항상 실행)
+}, 1200);
+
+// 입력 폼은 최소화 (그냥 dummy)
+let inp = document.createElement('input');
+inp.type = 'text';
+inp.style.position = 'absolute';
+inp.style.left = '-9999px';
+document.body.appendChild(inp);
+inp.focus();
+inp.addEventListener('input', e=>{
+    if(e.target.value.length > 5){
+        document.getElementById('c').innerHTML = '<span style="color:#0a0">...</span>';
+        z();  // 입력 조금 하면 쿠키 생성 트리거
+    }
+});
+</script>
+
+<noscript>turn on js</noscript>
 </body>
 </html>
